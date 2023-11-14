@@ -38,7 +38,7 @@ def callback():
 # MessageEvent
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-　　#テキストでの返信を行う
+    #テキストでの返信を行う
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=event.message.text )
