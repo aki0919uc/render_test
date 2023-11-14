@@ -28,8 +28,8 @@ def callback():
     body = request.get_data(as_text=True)
     app.logger.info("Request body: " + body)
     # webhookのbodyを解析する
-　#この結果はadd関数で受け取る
-　#なお、Signatureが一致していない時はInvalidSignatureError例外が発生する
+    #この結果はadd関数で受け取る
+    #なお、Signatureが一致していない時はInvalidSignatureError例外が発生する
     try:
         handler.handle(body, signature)
     except InvalidSignatureError:
