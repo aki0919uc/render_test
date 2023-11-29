@@ -90,6 +90,7 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text=reply_message)
             )
+            user_context[event.source.user_id].waiting_for_number = False
             driver.quit()
 
     else:
@@ -97,6 +98,7 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text="車番検索と入力してください：")
         )
+        user_context[event.source.user_id].waiting_for_number = False
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
