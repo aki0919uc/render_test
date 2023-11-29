@@ -95,6 +95,7 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text="車番検索と入力してください：")
+        )
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
