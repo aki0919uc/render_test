@@ -2,3 +2,4 @@ Flask==1.1.1
 chromedriver-binary==119.0.6045.105.0
 selenium==4.11.2
 line-bot-sdk==1.8.0
+jinja2
