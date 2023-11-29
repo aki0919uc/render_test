@@ -40,8 +40,30 @@ def handle_message(event):
     # 受信したメッセージを取得
     received_text = event.message.text
     if received_text == "車番検索"：
-        reply_message = "検索します"
+        courseIDList = ["130","207","058","100","129","149","171","023","153","042","138","145","222","108","010","133","517","516","513","514","386","384","391","224","372","370","392","492","371","405","390","368","377","376","387","383","366","380","491","489","354","337","320","344","040","114","086","164","219","001","532","113","174","034","096","009","144","003","074","190","155","073","098","175","147","168","188","388","375","097","436","438","427","242","238","430","429","426","434","432","523","519","529","518","146","183","526","522","530","515","528","520","524","512","545","546","582","583","584","585"]
+        CarNum = input('input CarNumber:')
+        options = Options()
+        options.add_argument('--headless')
+        driver = webdriver.Chrome(options=options)
 
+        try:
+            for a in range(0,len(courseIDList)):          
+                LINEurl = "https://notify-api.line.me/api/notify"
+                access_token = "SnXJJ67pDX5qKctgQkhqzRqKIQyRkgIZ4sDbdPWTusf"
+                token_dic = {'Authorization': 'Bearer ' + access_token}
+                url = 'https://transfer.navitime.biz/sotetsu-style-contents/bus-location/stops?courseId=0003400' + courseIDList[a] + '&vehicleId=' + CarNum
+                driver.get(url)
+                if a == 1:
+                    time.sleep(5)
+                else:
+                    time.sleep(2)
+                route = driver.find_element(By.ID, "vehicle-overview-right").text.replace("\n", "")
+                if route != "現在走行しているバスはありません。":
+                    message = CarNum + 'を' + route + 'で検知しました' + "\n" + url
+                    payload = {'message': message}
+                    requests.post(LINEurl, headers=token_dic, data=payload,)
+        finally:
+            driver.quit()
         
         line_bot_api.reply_message(
             event.reply_token,
