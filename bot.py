@@ -87,10 +87,10 @@ def log():
             j = j+1
             time.sleep(0.3)
 
-@app.route('/notify', method=['POST'])
+@app.route('/notify', methods=['POST'])
 def notify():
     log()
-
+    
 
 @app.route("/callback", methods=['POST'])
 def callback():
