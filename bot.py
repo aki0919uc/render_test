@@ -89,6 +89,7 @@ def log():
 
 @app.route('/notify')
 def notify():
+    log（）
     return "OK"
 
 
