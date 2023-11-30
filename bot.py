@@ -71,7 +71,7 @@ def log():
             td1551 = datetime.datetime.strptime(now,FMT) - datetime.datetime.strptime(d.dettime1551,FMT)
             td1552 = datetime.datetime.strptime(now,FMT) - datetime.datetime.strptime(d.dettime1552,FMT)
             CarNum = extract_js_var(soup, 'busPin')
-            url_navi_loc = 'https://transfer.navitime.biz/sotetsu-style-contents/bus-location/stops?courseId=0003400' + courseIDList[a] + '&vehicleId=' + Str(CarNum)
+            url_navi_loc = 'https://transfer.navitime.biz/sotetsu-style-contents/bus-location/stops?courseId=0003400' + courseIDList[a] + '&vehicleId=' + str(CarNum)
             if CarNum == 1551:
                 if td1551 > td:
                     message1551 = '1551が動いています。\n' + url_navi_loc
