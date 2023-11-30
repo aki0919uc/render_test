@@ -56,6 +56,7 @@ def log():
     now = datetime.datetime.now().strftime("%H:%M")
     FMT = "%H:%M"
     td = datetime.timedelta(hours=1, minutes=30)
+    timezero = datetime.timedelta(hours=0, minutes=00)
     token_dic = {'Authorization': 'Bearer ' + access_token}
 
 
@@ -73,13 +74,13 @@ def log():
             CarNum = extract_js_var(soup, 'busPin')
             url_navi_loc = 'https://transfer.navitime.biz/sotetsu-style-contents/bus-location/stops?courseId=0003400' + courseIDList[a] + '&vehicleId=' + str(CarNum)
             if CarNum == 1551:
-                if td1551 > td:
+                if td1551 > td or td1551 < timezero:
                     message1551 = '1551が動いています。\n' + url_navi_loc
                     payload1551 = {'message': message1551}
                     requests.post(LINEurl, headers=token_dic, data=payload1551,)
                 d.dettime1551 = now
             if CarNum == 1552:
-                if td1552 > td:
+                if td1552 > td or td1552 < timezero:
                     message1552 = '1552が動いています。\n' + url_navi_loc
                     payload1552 = {'message': message1552}
                     requests.post(LINEurl, headers=token_dic, data=payload1552,)
