@@ -86,6 +86,7 @@ def log():
                 d.dettime1552 = now
             j = j+1
             time.sleep(0.3)
+    return'OK'
 
 @app.route('/notify', methods=['GET'])
 def notify():
