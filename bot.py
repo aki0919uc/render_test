@@ -89,8 +89,7 @@ def log():
 
 @app.route('/notify')
 def notify():
-    log（）
-    return "OK"
+    log()
 
 
 @app.route("/callback", methods=['POST'])
