@@ -87,7 +87,7 @@ def log():
             j = j+1
             time.sleep(0.3)
 
-@app.route('/notify')
+@app.route('/notify', method=['POST'])
 def notify():
     log()
 
