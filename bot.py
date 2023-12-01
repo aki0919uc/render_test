@@ -153,7 +153,7 @@ def handle_message(event):
                 if c == 1:
                     time.sleep(5)
                 else:
-                    time.sleep(1)
+                    time.sleep(2)
                 route = driver.find_element(By.ID, "vehicle-overview-right").text.replace("\n", "")
                 if route != "現在走行しているバスはありません。":
                     reply_message = CarNum + 'を' + route + 'で検知しました' + "\n" + url_navi
