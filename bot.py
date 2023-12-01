@@ -145,13 +145,12 @@ def handle_message(event):
 
         try:
             for c in range(0,len(courseIDList)):
-                token_dic = {'Authorization': 'Bearer ' + access_token}
                 url_navi = 'https://transfer.navitime.biz/sotetsu-style-contents/bus-location/stops?courseId=0003400' + courseIDList[c] + '&vehicleId=' + CarNum
                 driver.get(url_navi)
                 if c == 1:
                     time.sleep(5)
                 else:
-                    time.sleep(2)
+                    time.sleep(1)
                 route = driver.find_element(By.ID, "vehicle-overview-right").text.replace("\n", "")
                 if route != "現在走行しているバスはありません。":
                     reply_message = CarNum + 'を' + route + 'で検知しました' + "\n" + url_navi
