@@ -176,14 +176,14 @@ def handle_message(event):
         user_context[event.source.user_id].waiting_for_reset_number = False
         CarNum = received_text
         if CarNum = 1551:
-            d.dettime1551 = "03:00"
+            d.dettime1551 == "03:00"
             line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text="1551をリセットしました")
             )
 
         if CarNum = 1552:
-            d.dettime1552 = "03:00"
+            d.dettime1552 == "03:00"
             line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text="1552をリセットしました")
