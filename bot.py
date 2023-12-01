@@ -25,6 +25,7 @@ app = Flask(__name__)
 
 class UserContext:
     waiting_for_number = False
+    waiting_for_reset_number = False
 user_context = {}
 
 class wholeapp:
@@ -66,7 +67,6 @@ def log():
 
     j = 2
     for a in range(0,len(courseIDList)):
-
         url_locate = 'https://transfer.navitime.biz/sotetsu/smart/location/BusLocationMap?courseId=0003400'+ courseIDList[a]
         res = requests.get(url_locate)
         
@@ -166,8 +166,29 @@ def handle_message(event):
             )
             driver.quit()
             w.processing = False
-        
+            
+    elif received_text == "リセット":
+        user_id = event.source.user_id
+        user_context[user_id] = UserContext()
+        user_context[user_id].waiting_for_reset_number = True
 
+    elif received_text.isdigit() and user_context.get(event.source.user_id) and user_context[event.source.user_id].waiting_for_reset_number:
+        user_context[event.source.user_id].waiting_for_reset_number = False
+        CarNum = received_text
+        if CarNum = 1551:
+            d.dettime1551 = "03:00"
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text="1551をリセットしました")
+            )
+
+        if CarNum = 1552:
+            d.dettime1552 = "03:00"
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text="1552をリセットしました")
+            )
+    
     else:
         line_bot_api.reply_message(
             event.reply_token,
