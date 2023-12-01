@@ -169,7 +169,7 @@ def handle_message(event):
             w.processing = False
             
     elif received_text == "リセット":
-        user_context[user_id].waiting_for_reset_number = True
+        user_context[event.source.user_id].waiting_for_reset_number = True
         user_context[event.source.user_id].waiting_for_number = False
         line_bot_api.reply_message(
                 event.reply_token,
