@@ -116,15 +116,22 @@ def handle_message(event):
     # 受信したメッセージを取得
     received_text = event.message.text
     if received_text == "車番検索":
-        user_id = event.source.user_id
-        user_context[user_id] = UserContext()
-        user_context[user_id].waiting_for_number = True
-        line_bot_api.reply_message(
+        if user_context.get(event.source.user_id) and user_context[event.source.user_id].waiting_for_number:
+            line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text="検索する車番を入力してください：")
+            TextSendMessage(text="現在使用中です、しばらく時間を空けてください")
         )
+        else:
+            user_id = event.source.user_id
+            user_context[user_id] = UserContext()
+            user_context[user_id].waiting_for_number = True
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text="検索する車番を入力してください：")
+            )
 
     elif received_text.isdigit() and user_context.get(event.source.user_id) and user_context[event.source.user_id].waiting_for_number:
+        user_context[user_id].waiting_for_number = False
         b = 0
         CarNum = received_text
         options = Options()
