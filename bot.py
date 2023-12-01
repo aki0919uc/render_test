@@ -119,18 +119,19 @@ def callback():
 def handle_message(event):
     # 受信したメッセージを取得
     received_text = event.message.text
-    user_context[event.source.user_id] = UserContext()
+    user_id = event.source.user_id
+    user_context[user_id] = UserContext()
     if received_text == "車番検索":
-        user_context[event.source.user_id].waiting_for_reset_number = False
+        user_context[user_id].waiting_for_reset_number = False
         if w.processing:
-            user_context[event.source.user_id].waiting_for_number = False
+            user_context[user_id].waiting_for_number = False
             line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text="現在使用中です、しばらく時間を空けてください")
             )
         else:
             w.processing = True
-            user_context[event.source.user_id].waiting_for_number = True
+            user_context[user_id].waiting_for_number = True
             line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text="検索する車番を入力してください：")
@@ -169,10 +170,12 @@ def handle_message(event):
             w.processing = False
             
     elif received_text == "リセット":
-        user_context[event.source.user_id].waiting_for_number = False
-        user_id = event.source.user_id
-        user_context[user_id] = UserContext()
         user_context[user_id].waiting_for_reset_number = True
+        user_context[event.source.user_id].waiting_for_number = False
+        line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text="リセットする車番(1551 or 1552)を入力してください：")
+        )
 
     elif received_text.isdigit() and user_context.get(event.source.user_id) and user_context[event.source.user_id].waiting_for_reset_number:
         user_context[event.source.user_id].waiting_for_reset_number = False
