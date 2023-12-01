@@ -27,6 +27,10 @@ class UserContext:
     waiting_for_number = False
 user_context = {}
 
+class wholeapp:
+    processing = False
+w = wholeapp()
+
 # LINE Developersのチャネルシークレットとチャネルアクセストークンを設定
 LINE_CHANNEL_ACCESS_TOKEN = os.getenv('LINE_CHANNEL_ACCESS_TOKEN')
 LINE_CHANNEL_SECRET = os.getenv('LINE_CHANNEL_SECRET')
@@ -116,12 +120,13 @@ def handle_message(event):
     # 受信したメッセージを取得
     received_text = event.message.text
     if received_text == "車番検索":
-        if user_context.get(event.source.user_id) and user_context[event.source.user_id].waiting_for_number:
+        if w.processing:
             line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text="現在使用中です、しばらく時間を空けてください")
         )
         else:
+            w.processing = True
             user_id = event.source.user_id
             user_context[user_id] = UserContext()
             user_context[user_id].waiting_for_number = True
@@ -131,7 +136,7 @@ def handle_message(event):
             )
 
     elif received_text.isdigit() and user_context.get(event.source.user_id) and user_context[event.source.user_id].waiting_for_number:
-        user_context[user_id].waiting_for_number = False
+        user_context[event.source.user_id].waiting_for_number = False
         b = 0
         CarNum = received_text
         options = Options()
@@ -161,6 +166,7 @@ def handle_message(event):
             TextSendMessage(text=reply_message)
             )
             driver.quit()
+            w.processing = False
         
 
     else:
