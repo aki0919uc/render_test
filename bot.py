@@ -119,7 +119,6 @@ def callback():
 def handle_message(event):
     # 受信したメッセージを取得
     received_text = event.message.text
-    user_context[event.source.user_id] = UserContext()
     if received_text == "車番検索":
         if w.processing == False:
             w.processing = True
