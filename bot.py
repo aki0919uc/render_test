@@ -210,8 +210,10 @@ def handle_message(event):
         )
     
     else:
-        user_context[event.source.user_id].waiting_for_number = False
-        user_context[event.source.user_id].waiting_for_reset_number = False
+        user_id = event.source.user_id
+        user_context[user_id] = UserContext()
+        user_context[user_id].waiting_for_number = False
+        user_context[user_id].waiting_for_reset_number = False
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text="車番検索と入力してください：")
