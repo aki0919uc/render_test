@@ -58,7 +58,7 @@ def extract_js_var(soup, js_var):
         return json.loads(json_str)
 
 def log():
-    now = datetime.datetime.now().strftime("%H:%M")
+    now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).strftime("%H:%M")
     FMT = "%H:%M"
     td = datetime.timedelta(hours=1, minutes=30)
     timezero = datetime.timedelta(hours=0, minutes=00)
