@@ -196,6 +196,18 @@ def handle_message(event):
                 event.reply_token,
                 TextSendMessage(text="1552をリセットしました")
             )
+
+    elif received_text == "dettime1551":
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=d.dettime1551)
+        )
+
+    elif received_text == "dettime1552":
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=d.dettime1552)
+        )
     
     else:
         user_context[event.source.user_id].waiting_for_number = False
