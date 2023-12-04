@@ -92,7 +92,7 @@ def log():
             j = j+1
             time.sleep(0.3)
 
-@app.route('/notify', methods=['GET'])
+@app.route('/notify', methods=['HEAD'])
 def notify():
     log()
     return'OK'
