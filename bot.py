@@ -153,7 +153,7 @@ def handle_message(event):
                 driver.get(url_navi)
                 time.sleep(e)
                 route = driver.find_element(By.ID, "vehicle-overview-right").text.replace("\n", "")
-                if route == "読み込み中…":
+                if route == "読込み中...":
                     e = e+2
                 elif route != "現在走行しているバスはありません。":
                     reply_message = CarNum + 'を' + route + 'で検知しました' + "\n" + url_navi
