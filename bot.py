@@ -139,7 +139,7 @@ def handle_message(event):
     elif received_text.isdigit() and user_context.get(event.source.user_id) and user_context[event.source.user_id].waiting_for_number:
         user_context[event.source.user_id].waiting_for_number = False
         b = 0
-        c = 1
+        c = 0
         e = 5
         #b:不検知判定用、c:courseID遷移用、e:読み込み中検知予防用
         CarNum = received_text
@@ -148,7 +148,7 @@ def handle_message(event):
         driver = webdriver.Chrome(options=options)
 
         try:
-            while c <= len(courseIDList):
+            while c < len(courseIDList):
                 url_navi = 'https://transfer.navitime.biz/sotetsu-style-contents/bus-location/stops?courseId=0003400' + courseIDList[c] + '&vehicleId=' + CarNum
                 driver.get(url_navi)
                 time.sleep(e)
