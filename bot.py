@@ -161,12 +161,18 @@ def handle_message(event):
         user_context[user_id] = UserContext()
         if w.processing == False:
             w.processing = True
-            user_context[user_id].waiting_for_number = True
             if "旭" in received_text:
                 f = 1
-            if "綾瀬" in received_text:
+            elif "綾瀬" in received_text:
                 f = 2
-            text = "検索する" + HomeList[f] +"の車番を入力してください："
+            else:
+                f = 0
+            if f > 0:
+                user_context[user_id].waiting_for_number = True
+                text = "検索する" + HomeList[f] +"の車番を入力してください："
+            elif:
+                text = "営業所名を含めてください"
+                w.processing = False
             line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text)
