@@ -125,8 +125,8 @@ def CarNumSearch(event, CarNum, CourseIDList):
         if b == 100:
             reply_message = "検知しませんでした"
         line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=reply_message)
+            event.reply_token,
+            TextSendMessage(text=reply_message)
         )
         driver.quit()
 
@@ -191,6 +191,7 @@ def handle_message(event):
         user_context[event.source.user_id].waiting_for_number = False
         CarNumSearch(event, received_text, ListofList[w.f])
         w.processing = False
+        return'OK'
             
     elif received_text == "リセット":
         user_id = event.source.user_id
