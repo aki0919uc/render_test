@@ -75,8 +75,8 @@ def log():
         if __name__ == "__main__":
             html = res.text
             soup = bs(html, 'html.parser')
-            td1361 = datetime.datetime.strptime(now,FMT) - datetime.datetime.strptime(d.dettime1551,FMT)
-            td1362 = datetime.datetime.strptime(now,FMT) - datetime.datetime.strptime(d.dettime1552,FMT)
+            td1361 = datetime.datetime.strptime(now,FMT) - datetime.datetime.strptime(d.dettime1361,FMT)
+            td1362 = datetime.datetime.strptime(now,FMT) - datetime.datetime.strptime(d.dettime1362,FMT)
             CarNum = extract_js_var(soup, 'busPin')
             url_navi_loc = 'https://transfer.navitime.biz/sotetsu-style-contents/bus-location/stops?courseId=0003400' + courseIDListAyase[a] + '&vehicleId=' + str(CarNum)
             if CarNum == 1361:
