@@ -170,7 +170,7 @@ def handle_message(event):
             if f > 0:
                 user_context[user_id].waiting_for_number = True
                 text = "検索する" + HomeList[f] +"の車番を入力してください："
-            elif:
+            else:
                 text = "営業所名を含めてください"
                 w.processing = False
             line_bot_api.reply_message(
