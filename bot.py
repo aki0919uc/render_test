@@ -30,6 +30,7 @@ user_context = {}
 
 class wholeapp:
     processing = False
+    f = 0
 w = wholeapp()
 
 # LINE Developersのチャネルシークレットとチャネルアクセストークンを設定
@@ -162,14 +163,14 @@ def handle_message(event):
         if w.processing == False:
             w.processing = True
             if "旭" in received_text:
-                f = 1
+                w.f = 1
             elif "綾瀬" in received_text:
-                f = 2
+                w.f = 2
             else:
-                f = 0
-            if f > 0:
+                w.f = 0
+            if w.f > 0:
                 user_context[user_id].waiting_for_number = True
-                text = "検索する" + HomeList[f] +"の車番を入力してください："
+                text = "検索する" + HomeList[w.f] +"の車番を入力してください："
             else:
                 text = "営業所名を含めてください"
                 w.processing = False
@@ -188,7 +189,7 @@ def handle_message(event):
 
     elif received_text.isdigit() and user_context.get(event.source.user_id) and user_context[event.source.user_id].waiting_for_number:
         user_context[event.source.user_id].waiting_for_number = False
-        CarNumSearch(event, received_text, ListofList[f])
+        CarNumSearch(event, received_text, ListofList[w.f])
         w.processing = False
             
     elif received_text == "リセット":
