@@ -122,9 +122,9 @@ def CarNumSearch(event, CarNum, CourseIDList):
                 e = 2
 
     finally:
-        if b == 100 and f == 1:
+        if b == 100 and w.f == 1:
             reply_message = "検知しませんでした"
-        elif b == 46 and f == 2:
+        elif b == 46 and w.f == 2:
             reply_message = "検知しませんでした"
         line_bot_api.reply_message(
             event.reply_token,
