@@ -46,7 +46,7 @@ FMTDay = "%m.%d"
 wsmakeday = "02.24"
 today = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).strftime(FMTDay)
 
-excel_path = '/Book1.xlsx'
+excel_path = 'Book1.xlsx'
 wb = openpyxl.load_workbook(excel_path)
 if today != wsmakeday:
     wb.create_sheet(title=str(today),index=0)
