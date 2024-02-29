@@ -24,6 +24,7 @@ from linebot.models import (
 
 app = Flask(__name__)
 
+wsmakeday = "02.24"
 
 class UserContext:
     waiting_for_reset_number = False
@@ -64,7 +65,6 @@ def extract_js_var(soup, js_var):
 
 def log():
     FMTDay = "%m.%d"
-    wsmakeday = "02.24"
     today = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).strftime(FMTDay)
 
     if today != wsmakeday:
