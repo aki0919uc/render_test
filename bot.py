@@ -46,16 +46,20 @@ FMTDay = "%m.%d"
 wsmakeday = "02.24"
 today = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).strftime(FMTDay)
 
-excel_path = 'Book1.xlsx'
+if today != wsmakeday:
+    excel_path = 'Book1.xlsx'
+    wb = openpyxl.load_workbook(excel_path)
+    wb.create_sheet(title=str(today),index=0)
+    ws = wb[str(today)]
+    ws.cell(2,1,value = "時刻")
+    wb.save(excel_path)
+    wb.close
+    wsmakeday = today
+
 wb = openpyxl.load_workbook(excel_path)
 ws = wb[str(today)]
-if today != wsmakeday:
-    wb.create_sheet(title=str(today),index=0)
-    ws.cell(2,1,value = "時刻")
-
 wb.save(excel_path)
 wb.close
-
 class dettime:
     dettime1361 = "2024/02/25-03:00"
     dettime1362 = "2024/02/25-03:00"
