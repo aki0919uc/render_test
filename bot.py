@@ -24,7 +24,6 @@ from linebot.models import (
 
 app = Flask(__name__)
 
-wsmakeday = "02.24"
 
 class UserContext:
     waiting_for_reset_number = False
@@ -32,6 +31,7 @@ user_context = {}
 
 class wholeapp:
     f = 0
+    wsmakeday = "02.29"
 w = wholeapp()
 
 # LINE Developersのチャネルシークレットとチャネルアクセストークンを設定
@@ -67,7 +67,7 @@ def log():
     FMTDay = "%m.%d"
     today = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).strftime(FMTDay)
 
-    if today != wsmakeday:
+    if today != w.wsmakeday:
         excel_path = 'Book1.xlsx'
         wb = openpyxl.load_workbook(excel_path)
         wb.create_sheet(title=str(today),index=0)
@@ -75,7 +75,7 @@ def log():
         ws.cell(2,1,value = "時刻")
         wb.save(excel_path)
         wb.close
-        wsmakeday = today
+        w.wsmakeday = today
 
     wb = openpyxl.load_workbook(excel_path)
     ws = wb[str(today)]
