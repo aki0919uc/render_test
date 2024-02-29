@@ -66,9 +66,9 @@ def extract_js_var(soup, js_var):
 def log():
     FMTDay = "%m.%d"
     today = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).strftime(FMTDay)
-
+    excel_path = 'Book1.xlsx'
+    
     if today != w.wsmakeday:
-        excel_path = 'Book1.xlsx'
         wb = openpyxl.load_workbook(excel_path)
         wb.create_sheet(title=str(today),index=0)
         ws = wb[str(today)]
