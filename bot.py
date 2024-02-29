@@ -24,6 +24,7 @@ from linebot.models import (
 
 app = Flask(__name__)
 
+
 class UserContext:
     waiting_for_reset_number = False
 user_context = {}
@@ -40,9 +41,17 @@ line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(LINE_CHANNEL_SECRET)
 LINEurl = "https://notify-api.line.me/api/notify"
 
-excel_path = '/Users/aki_u/documents/Python/buslocate.xlsx'
+
+FMTDay = "%m.%d"
+wsmakeday = "02.24"
+today = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).strftime(FMTDay)
+
+excel_path = '/Book1.xlsx'
 wb = openpyxl.load_workbook(excel_path)
-ws = wb['Sheet1']
+if today != wsmakeday:
+    wb.create_sheet(title=str(today),index=0)
+ws = wb[str(today)]
+
 wb.save(excel_path)
 wb.close
 
@@ -69,7 +78,7 @@ def log():
     FMT = "%Y/%m/%d-%H:%M"
     now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).strftime(FMT)
     FMTtime = "%H:%M"
-    nowtime = datetime.datetime.now().strftime(FMTtime)
+    nowtime = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).strftime(FMTtime)
     td = datetime.timedelta(hours=1, minutes=30)
     token_dic = {'Authorization': 'Bearer ' + access_token}
     MaxRow = ws.max_row +1
@@ -80,10 +89,6 @@ def log():
     ws.cell(MaxRow,73,value = nowtime)
     ws.cell(MaxRow,87,value = nowtime)
     ws.cell(MaxRow,104,value = nowtime)
-
-
-
-
 
     for a in range(0,len(courseIDListAyase)):
         url_locate = 'https://transfer.navitime.biz/sotetsu/smart/location/BusLocationMap?courseId=0003400'+ courseIDListAyase[a]
