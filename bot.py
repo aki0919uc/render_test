@@ -42,24 +42,7 @@ handler = WebhookHandler(LINE_CHANNEL_SECRET)
 LINEurl = "https://notify-api.line.me/api/notify"
 
 
-FMTDay = "%m.%d"
-wsmakeday = "02.24"
-today = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).strftime(FMTDay)
 
-if today != wsmakeday:
-    excel_path = 'Book1.xlsx'
-    wb = openpyxl.load_workbook(excel_path)
-    wb.create_sheet(title=str(today),index=0)
-    ws = wb[str(today)]
-    ws.cell(2,1,value = "時刻")
-    wb.save(excel_path)
-    wb.close
-    wsmakeday = today
-
-wb = openpyxl.load_workbook(excel_path)
-ws = wb[str(today)]
-wb.save(excel_path)
-wb.close
 class dettime:
     dettime1361 = "2024/02/25-03:00"
     dettime1362 = "2024/02/25-03:00"
@@ -80,6 +63,24 @@ def extract_js_var(soup, js_var):
         return json.loads(json_str)
 
 def log():
+    FMTDay = "%m.%d"
+    wsmakeday = "02.24"
+    today = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).strftime(FMTDay)
+
+    if today != wsmakeday:
+        excel_path = 'Book1.xlsx'
+        wb = openpyxl.load_workbook(excel_path)
+        wb.create_sheet(title=str(today),index=0)
+        ws = wb[str(today)]
+        ws.cell(2,1,value = "時刻")
+        wb.save(excel_path)
+        wb.close
+        wsmakeday = today
+
+    wb = openpyxl.load_workbook(excel_path)
+    ws = wb[str(today)]
+    wb.save(excel_path)
+    wb.close
     FMT = "%Y/%m/%d-%H:%M"
     now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).strftime(FMT)
     FMTtime = "%H:%M"
