@@ -1,5 +1,5 @@
 Flask==1.1.1
-chromedriver-binary==120.0.6099.62
+chromedriver-binary
 selenium==4.11.2
 line-bot-sdk==1.8.0
 click==7.1.1
