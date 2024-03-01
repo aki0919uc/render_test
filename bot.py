@@ -31,7 +31,6 @@ user_context = {}
 
 class wholeapp:
     f = 0
-    wsmakeday = "02.29"
 w = wholeapp()
 
 # LINE Developersのチャネルシークレットとチャネルアクセストークンを設定
@@ -64,35 +63,12 @@ def extract_js_var(soup, js_var):
         return json.loads(json_str)
 
 def log():
-    FMTDay = "%m.%d"
-    today = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).strftime(FMTDay)
-    excel_path = 'Book1.xlsx'
-    
-    if today != w.wsmakeday:
-        wb = openpyxl.load_workbook(excel_path)
-        wb.create_sheet(title=str(today),index=0)
-        ws = wb[str(today)]
-        ws.cell(2,1,value = "時刻")
-        wb.save(excel_path)
-        wb.close()
-        w.wsmakeday = today
-
-    wb = openpyxl.load_workbook(excel_path)
-    ws = wb[str(today)]
     FMT = "%Y/%m/%d-%H:%M"
     now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).strftime(FMT)
     FMTtime = "%H:%M"
     nowtime = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).strftime(FMTtime)
     td = datetime.timedelta(hours=1, minutes=30)
     token_dic = {'Authorization': 'Bearer ' + access_token}
-    MaxRow = ws.max_row +1
-    ws.cell(MaxRow,1,value = nowtime)
-    ws.cell(MaxRow,22,value = nowtime)
-    ws.cell(MaxRow,44,value = nowtime)
-    ws.cell(MaxRow,54,value = nowtime)
-    ws.cell(MaxRow,73,value = nowtime)
-    ws.cell(MaxRow,87,value = nowtime)
-    ws.cell(MaxRow,104,value = nowtime)
 
     for a in range(0,len(courseIDListAyase)):
         url_locate = 'https://transfer.navitime.biz/sotetsu/smart/location/BusLocationMap?courseId=0003400'+ courseIDListAyase[a]
@@ -104,7 +80,6 @@ def log():
             td1361 = datetime.datetime.strptime(now,FMT) - datetime.datetime.strptime(d.dettime1361,FMT)
             td1362 = datetime.datetime.strptime(now,FMT) - datetime.datetime.strptime(d.dettime1362,FMT)
             CarNum = extract_js_var(soup, 'busPin')
-            ws.cell(MaxRow,a+1,value = CarNum)
             url_navi_loc = 'https://transfer.navitime.biz/sotetsu-style-contents/bus-location/stops?courseId=0003400' + courseIDListAyase[a] + '&vehicleId=' + str(CarNum)
             if CarNum == 1361:
                 if td1361 > td:
@@ -119,8 +94,6 @@ def log():
                     requests.post(LINEurl, headers=token_dic, data=payload1362,)
                 d.dettime1362 = now
             time.sleep(0.3)
-    wb.save(excel_path)
-    wb.close
 
 
 @app.route('/notify', methods=['HEAD','GET'])
