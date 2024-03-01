@@ -79,8 +79,6 @@ def log():
 
     wb = openpyxl.load_workbook(excel_path)
     ws = wb[str(today)]
-    wb.save(excel_path)
-    wb.close
     FMT = "%Y/%m/%d-%H:%M"
     now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).strftime(FMT)
     FMTtime = "%H:%M"
@@ -122,7 +120,7 @@ def log():
                 d.dettime1362 = now
             time.sleep(0.3)
     wb.save(excel_path)
-
+    wb.close
 
 
 @app.route('/notify', methods=['HEAD','GET'])
