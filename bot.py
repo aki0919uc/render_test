@@ -104,7 +104,7 @@ def log():
             td1361 = datetime.datetime.strptime(now,FMT) - datetime.datetime.strptime(d.dettime1361,FMT)
             td1362 = datetime.datetime.strptime(now,FMT) - datetime.datetime.strptime(d.dettime1362,FMT)
             CarNum = extract_js_var(soup, 'busPin')
-            ws.cell(MaxRow,a,value = CarNum)
+            ws.cell(MaxRow,a+1,value = CarNum)
             url_navi_loc = 'https://transfer.navitime.biz/sotetsu-style-contents/bus-location/stops?courseId=0003400' + courseIDListAyase[a] + '&vehicleId=' + str(CarNum)
             if CarNum == 1361:
                 if td1361 > td:
