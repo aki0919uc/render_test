@@ -74,7 +74,7 @@ def log():
         ws = wb[str(today)]
         ws.cell(2,1,value = "時刻")
         wb.save(excel_path)
-        wb.close
+        wb.close()
         w.wsmakeday = today
 
     wb = openpyxl.load_workbook(excel_path)
